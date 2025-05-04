@@ -1,0 +1,17 @@
+services:
+  mintpy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mintpy_container
+    volumes:
+      - ./data:/app/data      
+      - ./MintPy:/app/MintPy
+    working_dir: /app/data
+    environment:
+      - MINTPY_HOME=/app/MintPy
+      - PATH=/app/MintPy/src/mintpy/cli:$PATH
+      - PYTHONPATH=/app/MintPy/src:$PYTHONPATH
+    command: bash -c "pip3 install -e /app/MintPy && bash"
+    stdin_open: true
+    tty: true
